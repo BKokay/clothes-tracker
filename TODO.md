@@ -1,0 +1,1 @@
+Redo the type enum so that it has leggings_long, leggings_short, etc. 
