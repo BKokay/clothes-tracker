@@ -4,23 +4,24 @@ import com.tracker.models.enums.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 public class ToBuyItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "Family_id", nullable = false)
+    private Family Family;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
+    @Column()
     private Size size;
 
-    @Column(nullable = true)
+    @Column()
     private String color;
 
     @Enumerated(EnumType.STRING)
@@ -28,13 +29,13 @@ public class ToBuyItem {
     private Type type;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
+    @Column()
     private Season season;
 
     @Column(nullable = false)
     private Date buyBy;
 
-    @Column(nullable = true)
+    @Column()
     private String description;
 
     private LocalDateTime createdAt;
@@ -46,8 +47,8 @@ public class ToBuyItem {
     }
 
     // Constructor for creating a new ToBuyItem
-    public ToBuyItem(User user, Size size, String color, Type type, Season season, Date buyBy, String description) {
-        this.user = user;
+    public ToBuyItem(Family Family, Size size, String color, Type type, Season season, Date buyBy, String description) {
+        this.Family = Family;
         this.size = size;
         this.color = color;
         this.type = type;
@@ -58,20 +59,20 @@ public class ToBuyItem {
 
     // Getters and setters
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Family getFamily() {
+        return Family;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFamily(Family Family) {
+        this.Family = Family;
     }
 
     public Size getSize() {
@@ -154,7 +155,7 @@ public class ToBuyItem {
     public String toString() {
         return "ToBuyItem{" +
                 "id=" + id +
-                ", user=" + user +
+                ", Family=" + Family +
                 ", size=" + size +
                 ", color='" + color + '\'' +
                 ", type=" + type +

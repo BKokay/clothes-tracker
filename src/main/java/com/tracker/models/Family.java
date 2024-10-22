@@ -2,15 +2,16 @@ package com.tracker.models;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
-public class User {
+public class Family {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @Column(nullable = true)
+    @Column()
     private String username;
 
     @Column(nullable = false)
@@ -19,27 +20,27 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Child> children;  // A user can have many children
+    @OneToMany(mappedBy = "family", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Person> people;  //this creates the one-to-many relationship for JPA.
 
     // Default constructor for JPA
-    public User() {
+    public Family() {
     }
 
-    // Constructor for creating a new User
-    public User(String username, String email, String password, List<Child> child) {
+    // Constructor for creating a new family
+    public Family(String username, String email, String password, List<Person> person) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.children = child;
+        this.people = person;
     }
 
     // Getters and setters
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -67,12 +68,12 @@ public class User {
         this.password = password;
     }
 
-    public List<Child> getChildren() {
-        return children;
+    public List<Person> getChildren() {
+        return people;
     }
 
-    public void setChildren(List<Child> children) {
-        this.children = children;
+    public void setChildren(List<Person> people) {
+        this.people = people;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", children='" + children + '\'' +
+                ", children='" + people + '\'' +
                 '}';
     }
 }

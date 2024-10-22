@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Child {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User parent;  // Each child belongs to a specific parent (user)
+    @JoinColumn(name = "family_id", nullable = false)
+    private Family family;  // Each child belongs to a specific family
 
     private String name;
 
-    private String gender;  // Optional: Store gender of the child if needed
+    private String gender;
 
     private List<Size> clothingSize;
 
@@ -30,10 +30,10 @@ public class Child {
     private List<ClothingItem> clothingItems;  // A child can have many clothing items
 
     // Constructors
-    public Child() {}
+    public Person() {}
 
-    public Child(User parent, String name, String gender, List<Size> clothingSize, ShoeSize shoeSize, List<ClothingItem> clothingItems) {
-        this.parent = parent;
+    public Person(Family family, String name, String gender, List<Size> clothingSize, ShoeSize shoeSize, List<ClothingItem> clothingItems) {
+        this.family = family;
         this.name = name;
         this.gender = gender;
         this.clothingSize = clothingSize;
@@ -51,12 +51,12 @@ public class Child {
         this.id = id;
     }
 
-    public User getParent() {
-        return parent;
+    public Family getParent() {
+        return family;
     }
 
-    public void setParent(User parent) {
-        this.parent = parent;
+    public void setParent(Family parent) {
+        this.family = parent;
     }
 
     public String getName() {
@@ -102,9 +102,9 @@ public class Child {
 
     @Override
     public String toString() {
-        return "Child{" +
+        return "Person{" +
                 "id=" + id +
-                ", parent=" + parent +
+                ", family=" + family +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", clothingSize=" + clothingSize +

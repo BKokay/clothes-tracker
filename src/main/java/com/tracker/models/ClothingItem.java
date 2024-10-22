@@ -4,21 +4,22 @@ import com.tracker.models.enums.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 public class ClothingItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "child_id", nullable = false)  // ClothingItem belongs to a specific child
-    private Child child;
+    @JoinColumn(name = "child_id", nullable = false)  // ClothingItem beUUIDs to a specific person
+    private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)  // Every item belongs to a user
-    private User user;
+    @JoinColumn(name = "user_id", nullable = false)  
+    private Family family;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -50,10 +51,10 @@ public class ClothingItem {
     public ClothingItem() {
     }
 
-    public ClothingItem(Long id, Child child, User user, Gender gender, String color, Size size, Season season, Condition condition, Type type, boolean archived, String photoUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ClothingItem(UUID id, Person person, Family family, Gender gender, String color, Size size, Season season, Condition condition, Type type, boolean archived, String photoUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.child = child;
-        this.user = user;
+        this.person = person;
+        this.family = family;
         this.gender = gender;
         this.color = color;
         this.size = size;
@@ -69,28 +70,28 @@ public class ClothingItem {
 
     // Getters and setters
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public Child getChild() {
-        return child;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setChild(Child child) {
-        this.child = child;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public User getUser() {
-        return user;
+    public Family getFamily() {
+        return family;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFamily(Family family) {
+        this.family = family;
     }
 
     public Gender getGender() {
@@ -191,8 +192,8 @@ public class ClothingItem {
     public String toString() {
         return "ClothingItem{" +
                 "id=" + id +
-                ", child=" + child +
-                ", user=" + user +
+                ", person=" + person +
+                ", family=" + family +
                 ", gender=" + gender +
                 ", color='" + color + '\'' +
                 ", size=" + size +
